@@ -18,13 +18,11 @@ jobs:
         working-directory: ./src/testing-react-app
         run: npm run build
       
-      - name: Install dependencies for the CDK package
-        working-directory: ./
-        run: npm install
-      
       - name: Deploy CDK stacks to AWS account
         working-directory: ./
-        run: cdk deploy --all --require-approval=never
+        run: |
+          npm install
+          cdk deploy --all --require-approval=never
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
