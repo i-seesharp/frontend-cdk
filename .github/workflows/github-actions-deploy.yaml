@@ -1,0 +1,36 @@
+name: Github Actions Deploy
+on: [push]
+jobs:
+  CDK-Deploy-Frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies for the react app
+        working-directory: ./src/testing-react-app
+        run: npm install
+
+      - name: Build React App
+        working-directory: ./src/testing-react-app
+        run: npm run build
+      
+      - name: Install dependencies for the CDK package
+        working-directory: ./
+        run: npm install
+      
+      - name: Deploy CDK stacks to AWS account
+        working-directory: ./
+        uses: youyo/aws-cdk-github-actions@v2
+        with:
+          cdk_subcommand: 'deploy'
+          cdk_args: '--require-approval never'
+          actions_comment: false
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      
