@@ -2,7 +2,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home } from './components/Home'
 import './App.css'
 import { About } from './components/About'
-import { CICD } from './components/CICD'
+import { Coffee } from './components/Profile'
+
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Routes>
         <Route path='/' element={ <Home /> } />
         <Route path='/about' element={ <About /> } />
-        <Route path='/cicd' element={ <CICD /> } />
+        <Route path='/coffee' element={ <Coffee name='A.D.B' /> } />
       </Routes>
     </BrowserRouter>
   )
